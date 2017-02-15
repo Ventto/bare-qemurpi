@@ -1,0 +1,7 @@
+*.swo
+*.swp
+*.i
+*.o
+NOTES.md
+TODO.md
+tests/
