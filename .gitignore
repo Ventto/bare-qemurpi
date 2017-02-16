@@ -4,4 +4,15 @@
 *.o
 NOTES.md
 TODO.md
-tests/
+
+!tests
+tests/*
+!tests/apps/
+!tests/xtools-cfg/
+tests/xtools-cfg/*
+!tests/xtools-cfg/bare-arm
+tests/xtools-cfg/bare-arm/*
+!tests/xtools-cfg/bare-arm/.config
+
+
+
