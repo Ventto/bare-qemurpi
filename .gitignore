@@ -4,16 +4,11 @@
 *.o
 *.elf
 *.bin
-NOTES.md
-TODO.md
 
-!tests
-tests/*
-!tests/xtools-cfg/
-tests/xtools-cfg/*
-!tests/xtools-cfg/bare-arm
-tests/xtools-cfg/bare-arm/*
-!tests/xtools-cfg/bare-arm/.config
+!tests/**/
+.*
 
-
-
+/xtools/**/**
+!/xtools/**/
+!.config
+.*
