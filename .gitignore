@@ -12,3 +12,6 @@
 !/xtools/**/
 !.config
 .*
+
+!.gitattributes
+!.gitignore
