@@ -11,15 +11,16 @@ $(BIN): $(ELF)
 	arm-unknown-eabi-objcopy -O binary $^ $@
 
 $(ELF): $(APP).o startup.o
-	arm-unknown-eabi-ld -T $(LDSCRIPT) $< -o $@
+	arm-unknown-eabi-ld -Map $(APP).map -T $(LDSCRIPT) $< -o $@
 
 startup.o: startup.s
-	arm-unknown-eabi-as -mcpu=arm926ej-s -g $^ -o $@
+	arm-unknown-eabi-as $(DFLAG) $^ -o $@
 
 $(APP).o: $(APP).c
-	arm-unknown-eabi-gcc -c -mcpu=arm926ej-s $(CFLAGS) $^ -o $@
+	arm-unknown-eabi-gcc -c $(CFLAGS) $^ -o $@
 
-debug: CFLAGS+=-g
+debug: DFLAG+=-g
+debug: CFLAGS+=$(DFLAG)
 debug: all
 
 clean:
