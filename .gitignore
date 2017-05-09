@@ -10,10 +10,9 @@ docs/
 .*
 
 # Toolchain configuration files
-/xtools/**/**
-!/xtools/**/
-!.config
-.*
+!xconfigs/*
+xconfigs/**/
+
 
 # Callgrind
 callgrind.*
