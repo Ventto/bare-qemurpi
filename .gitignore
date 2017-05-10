@@ -1,18 +1,9 @@
+# Root
+docs/
 *.o
 *.elf
 *.bin
 *.map
-
-docs/
-
-# Binary tests
-!tests/**/
-.*
-
-# Toolchain configuration files
-!xconfigs/*
-xconfigs/**/
-
 
 # Callgrind
 callgrind.*
@@ -35,5 +26,6 @@ Desktop.ini
 \#*\#
 .\#*
 
+!tests/**/
 !.gitattributes
 !.gitignore
