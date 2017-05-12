@@ -162,7 +162,7 @@ int th_vsprintf( char *str, const char *fmt, va_list args );
 #define th_dprintf th_printf
 #else
 /* if BMDEBUG off, make this a local useless function to allow compiler to easily optimize it away */
-inline int th_dprintf( const char *fmt, ... ) { if (fmt) return 1; else return 0; }
+static inline int th_dprintf( const char *fmt, ... ) { if (fmt) return 1; else return 0; }
 #endif
 int th_sprintf( char *str, const char *fmt, ... );
 int th_snprintf(char *str, size_t size, const char *format, ...);
