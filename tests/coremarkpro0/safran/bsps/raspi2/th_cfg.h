@@ -135,7 +135,7 @@ Please refer to http://www.eembc.org/license.php for the specific license agreem
 
 #define FP_FORMAT_NEEDS_LEADING_ONE (1)
 
-#define AL_ISFINITE (1)
+#define AL_ISFINITE (0)
 
 /* define if compiler does not support restrict */
 #if defined(__MWERKS__) || defined(__DCC__)
