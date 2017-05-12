@@ -1,23 +1,19 @@
-
-# Target specific source files of the $(TARGET_TOPDIR) directory
-TARGET_TOPDIR	:= ../../../safran/bsps/raspi2
-TARGET_SRCS		= $(wildcard $(TARGET_TOPDIR)/*.c)
-
 SRC_DIR		= 	src/
-SRC_FILES	= 	md5 \
-				mith_lib \
-				mith_workload \
-				th_bignum \
-				th_encode \
-				th_getopt \
-				th_lib \
-				th_math \
-				th_rand
+SRC_FILES	= 	md5.c \
+				mith_lib.c \
+				mith_workload.c \
+				th_bignum.c \
+				th_encode.c \
+				th_getopt.c \
+				th_lib.c \
+				th_math.c \
+				th_rand.c
 
-SRCS 		= $(addprefix $(SRC_DIR), $(addsuffix .c,$(SRC_FILES))) $(TARGET_SRCS)
+BSP_SRCS	= $(wildcard $(BSPDIR)/*.c)
+SRCS 		= $(addprefix $(SRC_DIR), $(SRC_FILES)) $(BSP_SRCS)
 OBJS		= $(SRCS:.c=.o)
 
-HEADERS		= $(TARGET_TOPDIR) include al/include
+HEADERS		= ./ $(BSPDIR) include al/include
 INCLUDES	= $(addprefix -I,$(HEADERS))
 
 CFLAGS 		= -Wall $(DFLAGS)
@@ -27,6 +23,10 @@ all: $(OBJS)
 
 %.o: %.c
 	$(CC) $(CFLAGS) $(INCLUDES) -c $^ -o $@
+
+.PHONY: debug
+debug: CFLAGS+=-g
+debug: all
 
 .PHONY: clean
 clean:
