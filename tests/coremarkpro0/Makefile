@@ -22,9 +22,14 @@ $(ELF): $(OBJS)
 	$(CC) $(CFLAGS) $^ -o $@ -lm
 
 $(OBJS):
-	$(MAKE) -C $(COREDIR) BSPDIR=$(BSPDIR)
-	$(MAKE) -C $(MITHDIR) BSPDIR=$(BSPDIR)
-	$(MAKE) -C $(WORKDIR) BSPDIR=$(BSPDIR)
+	$(MAKE) -C $(COREDIR) BSPDIR=$(BSPDIR) $(DEBUG)
+	$(MAKE) -C $(MITHDIR) BSPDIR=$(BSPDIR) $(DEBUG)
+	$(MAKE) -C $(WORKDIR) BSPDIR=$(BSPDIR) $(DEBUG)
+
+.PHONY: debug
+debug: CFLAGS+=-g
+debug: DEBUG=debug
+debug: all
 
 .PHONY: clean
 clean:
