@@ -37,7 +37,6 @@ Please refer to http://www.eembc.org/license.php for the specific license agreem
 
 
 
-#include "CPSP_MPC577_RTC_HSI_public.h"
 #include "th_cfg.h"
 #if defined(_MSC_VER)
 /* To avoid issues, windows.h must be included before stdXX if used at all */
@@ -109,10 +108,10 @@ Please refer to http://www.eembc.org/license.php for the specific license agreem
 	#endif
 	ALTIMETYPE initial, final;
 #else
-    #include "CPSP_MPC577_RTC_HSI_public.h"
-		#define ALTIMETYPE BSW_SYSTEM_TIME_TYPE
+        #include <time.h>
+		#define ALTIMETYPE clock_t
 		ALTIMETYPE initial, final;
-		#define GETMYTIME(_t) CPSP_MPC577_RTC_HSI_GET_SYSTIME(_t)
+		#define GETMYTIME(_t) (*_t=clock())
 		#define MYTIMEDIFF(fin,ini) (((fin)-(ini))/TIMER_RES_DIVIDER)
 		#define NSECS_PER_SEC 1000000000
 		#define TIMER_RES_DIVIDER 100
@@ -737,9 +736,6 @@ char	*al_getenv( const char *key )
 void redirect_std_files(void);
 void	al_main( int argc, char* argv[]  )
 {
-  BSW_RC_TYPE ret;
-  BSW_SYSTEM_TIME_TYPE starttime, currenttime;
-
   argc=argc; /*avoid compiler warning */
 	argv=argv; /*avoid compiler warning */
 	redirect_std_files();
@@ -750,19 +746,11 @@ void	al_main( int argc, char* argv[]  )
 	> special command line options may make porting your benchmarks easier.
 	*/
 
- /* Initialize RTC */
-  CPSP_MPC577_RTC_HSI_INIT(&ret);
+    /* FIXME: Initialize RTC */
+    do
+    {
 
-  do
-  {
-    CPSP_MPC577_RTC_HSI_GET_SYSTIME( &currenttime );
-  } while (currenttime == 0);
-
-/* CPSP_MPC577_RTC_HSI_GET_SYSTIME( &starttime );
- do
- {
-   CPSP_MPC577_RTC_HSI_GET_SYSTIME( &currenttime );
- } while (currenttime - starttime < 40000000000); */
+    } while (1);
 
 #if 	!HOST_EXAMPLE_CODE
 #endif
