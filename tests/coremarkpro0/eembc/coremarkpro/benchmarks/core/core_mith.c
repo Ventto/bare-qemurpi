@@ -162,7 +162,6 @@ void *bmark_init_core(void *in_params) {
 	}
 	/* init data structures */
 	{
-		ee_u32 per_item=16+sizeof(struct list_data_s); /* to accomodate systems with 64b pointers, and make sure same code is executed, set max list elements */
 		p->results->list=core_list_init(p->li,p->results->memblock[1],p->results->seed1);
 		core_init_matrix(mem_req[ID_MATRIX], p->results->memblock[2], (ee_s32)p->results->seed1 | (((ee_s32)p->results->seed2) << 16), &(p->results->mat), p->mn );
 		core_init_state(p->ss,p->results->seed1,p->results->memblock[3]);
@@ -186,9 +185,6 @@ void *bmark_fini_core(void *in_params) {
 
 void *t_run_test_core(struct TCDef *tcdef,void *in_params) {
 	core_params *p=(core_params *)in_params;
-	e_u32 test1=0, test2=0;
-	int i,j;
-	
 	tcdef->expected_CRC=0;
 	iterate(p->results);
 		
@@ -201,15 +197,6 @@ void *t_run_test_core(struct TCDef *tcdef,void *in_params) {
 int bmark_verify_core(void *in_params) {
 	int i;
 	core_params *p=(core_params *)in_params;
-	int err=0;
-
-	e_u32 s1,s2,s3;
-	e_u32 li,ss,mn;
-	e_u32 seed;
-	e_s32 gen_ref;
-	core_results *results;
-	int data_id;
-	e_u16 crc[4];
 	e_u16 seedcrc=crc16(p->results->seed1,0);
 	seedcrc=crc16(p->results->seed2,seedcrc);
 	seedcrc=crc16(p->results->seed3,seedcrc);

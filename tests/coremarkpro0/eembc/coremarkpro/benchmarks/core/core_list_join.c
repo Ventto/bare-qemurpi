@@ -208,9 +208,7 @@ ee_u16 core_bench_list(core_results *res, ee_s16 finder_idx) {
 
 */
 list_head *core_list_init(ee_u32 blksize, list_head *memblock, ee_s16 seed) {
-	/* calculated pointers for the list */
-	ee_u32 per_item=16+sizeof(struct list_data_s);
-	ee_u32 size=blksize; 
+	ee_u32 size=blksize;
 	list_head *memblock_end=memblock+size;
 	list_data *datablock=(list_data *)(memblock_end);
 	list_data *datablock_end=datablock+size;
