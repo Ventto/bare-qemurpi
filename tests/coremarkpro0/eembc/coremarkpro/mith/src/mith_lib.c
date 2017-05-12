@@ -15,6 +15,9 @@ Please refer to http://www.eembc.org/license.php for the specific license agreem
 	This file provides the control for working with mith workloads.
  */
 
+#include <stdio.h>
+#include <string.h>
+
 #include "th_lib.h"
 #include "th_al.h"
 #include "al_smp.h"
