@@ -1,3 +1,5 @@
+include ../crosscompile_defs.mk
+
 APP  = kernel7
 ELF  = $(APP).elf
 BIN  = $(APP).bin
@@ -8,16 +10,16 @@ CFLAGS += -Wall
 all: $(BIN)
 
 $(BIN): $(ELF)
-	arm-unknown-eabi-objcopy -O binary $< $@
+	$(OBJCOPY) -O binary $< $@
 
 $(ELF): main.o startup.o
-	arm-unknown-eabi-ld -Map $(APP).map -T $(LDSCRIPT) $^ -o $@
+	$(LD) -Map $(APP).map -T $(LDSCRIPT) $^ -o $@
 
 startup.o: startup.S
-	arm-unknown-eabi-as $(DFLAG) $< -o $@
+	$(AS) $(DFLAG) $< -o $@
 
 main.o: main.c
-	arm-unknown-eabi-gcc -ffreestanding -c $(CFLAGS) $< -o $@
+	$(CC) -ffreestanding -c $(CFLAGS) $< -o $@
 
 debug: DFLAG+=-g
 debug: CFLAGS+=$(DFLAG)
