@@ -12,6 +12,8 @@ enum {
 
 int _close(int file) { return -1; }
 
+void _exit(int status) { while (1); }
+
 int _fstat(int file, struct stat *st) { return 0; }
 
 int _isatty(int file) { return 1; }
