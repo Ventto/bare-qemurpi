@@ -747,10 +747,8 @@ void	al_main( int argc, char* argv[]  )
 	*/
 
     /* FIXME: Initialize RTC */
-    do
-    {
 
-    } while (1);
+    /* FIXME: END */
 
 #if 	!HOST_EXAMPLE_CODE
 #endif
