@@ -66,8 +66,8 @@ Please refer to http://www.eembc.org/license.php for the specific license agreem
  * @note If not defined from COMPILER_DEFINES in toolchain file, Set it here. 
  * Default is Little Endian.
  */
-#define EE_BIG_ENDIAN    1
-#define EE_LITTLE_ENDIAN 0
+#define EE_BIG_ENDIAN    0
+#define EE_LITTLE_ENDIAN 1
 
 #if !defined( EE_LITTLE_ENDIAN ) 
 #define EE_LITTLE_ENDIAN (!EE_BIG_ENDIAN)
