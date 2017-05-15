@@ -1,26 +1,21 @@
-SRCS	= 	core_list_join.c \
-			core_matrix.c \
-			core_mith.c \
-			core_portme.c \
-			core_state.c \
-			core_util.c
-
-OBJS	= $(SRCS:.c=.o)
-
-HEADERS		= ./ $(BSPDIR) ../../mith/include ../../mith/al/include
-INCLUDES	= $(addprefix -I, $(HEADERS))
-
-CFLAGS 		= -Wall $(DFLAGS)
+SRCS		= 	core_list_join.c \
+				core_matrix.c \
+				core_mith.c \
+				core_portme.c \
+				core_state.c \
+				core_util.c
+OBJS		= $(SRCS:.c=.o)
+HEADERS		= $(BSPDIR) ../../mith/include ../../mith/al/include
+INCS		= $(addprefix -I, $(HEADERS))
 
 .PHONY: all
 all: $(OBJS)
 
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $^ -o $@
+%.o: %.c %h
+	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
-.PHONY: debug
-debug: CFLAGS+=-g
-debug: all
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 .PHONY: clean
 clean:

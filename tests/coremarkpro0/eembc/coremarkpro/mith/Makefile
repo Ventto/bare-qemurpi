@@ -12,21 +12,17 @@ SRC_FILES	= 	md5.c \
 BSP_SRCS	= $(wildcard $(BSPDIR)/*.c)
 SRCS 		= $(addprefix $(SRC_DIR), $(SRC_FILES)) $(BSP_SRCS)
 OBJS		= $(SRCS:.c=.o)
-
-HEADERS		= ./ $(BSPDIR) include al/include
-INCLUDES	= $(addprefix -I,$(HEADERS))
-
-CFLAGS 		= -Wall $(DFLAGS)
+HEADERS		= $(BSPDIR) include al/include
+INCS		= $(addprefix -I,$(HEADERS))
 
 .PHONY: all
 all: $(OBJS)
 
-%.o: %.c
-	$(CC) $(CFLAGS) $(INCLUDES) -c $^ -o $@
+%.o: %.c %h
+	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
-.PHONY: debug
-debug: CFLAGS+=-g
-debug: all
+%.o: %.c
+	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
 .PHONY: clean
 clean:
