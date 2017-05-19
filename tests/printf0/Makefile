@@ -8,15 +8,13 @@ LDSCRIPT = kernel.ld
 SRCS = main.c syscall.c
 OBJS = $(SRCS:.c=.o)
 
-CFLAGS += -Wall
-
 all: $(BIN)
 
 $(BIN): $(ELF)
 	$(OBJCOPY) -O binary $< $@
 
 $(ELF): startup.o $(OBJS)
-	$(CC) -lc -Wl,-Map=$(APP).map -T $(LDSCRIPT) $^ -o $@
+	$(CC) -lc -Wl,-Map=$(APP).map -T $(LDSCRIPT) $(CFLAGS) $^ -o $@
 
 main.o: main.c
 	$(CC) -c $(CFLAGS) $< -o $@
