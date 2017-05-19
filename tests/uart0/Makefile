@@ -5,8 +5,6 @@ ELF  = $(APP).elf
 BIN  = $(APP).bin
 LDSCRIPT = kernel.ld
 
-CFLAGS += -Wall
-
 all: $(BIN)
 
 $(BIN): $(ELF)
