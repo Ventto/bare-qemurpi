@@ -1,4 +1,4 @@
-include ../../crosscompile_defs.mk
+include ../crosscompile_defs.mk
 
 TARGET		:= raspi2
 
