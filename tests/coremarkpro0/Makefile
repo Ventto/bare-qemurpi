@@ -5,28 +5,36 @@ TARGET		:= raspi2
 TOPDIR		= $(shell pwd)
 export TOPDIR
 
-COREDIR 	= $(TOPDIR)/eembc/coremarkpro/benchmarks/core
-MITHDIR 	= $(TOPDIR)/eembc/coremarkpro/mith
-BSPDIR		= $(TOPDIR)/safran/bsps/$(TARGET)
-WORKDIR		= $(TOPDIR)/safran/workloads/coremarkpro-core
+COREDIR 	= $(TOPDIR)/src/eembc/coremarkpro/benchmarks/core
+MITHDIR 	= $(TOPDIR)/src/eembc/coremarkpro/mith
+BSPDIR		= $(TOPDIR)/src/safran/bsps/$(TARGET)
+WORKDIR		= $(TOPDIR)/src/safran/workloads/coremarkpro-core
+BUILDDIR   	:= build
+BINDIR		= $(BUILDDIR)/$(TARGET)/coremarkpro-core
 
 HEADERS		= $(BSPDIR) $(MITHDIR)/include $(MITHDIR)/al/include
 INCS		= $(addprefix -I,$(HEADERS))
 
 SRCS		= $(shell find . -type f -iname '*.c')
-OBJS		= $(SRCS:.c=.o) startup.o
+OBJS		= $(SRCS:.c=.o) src/startup.o
 
-ELF			= coremark.elf
+APPNAME		= coremark
+ELF			= $(APPNAME).elf
+MAP			= $(APPNAME).map
+
 LDSCRIPT	= $(BSPDIR)/kernel.ld
-
-CFLAGS 		= -Wall -pedantic -std=c99
+CFLAGS 		+= -pedantic
 export CFLAGS
 
 .PHONY: all
-all: $(ELF)
+all: $(BINDIR) $(ELF)
 
-$(ELF): core mith target exec
-	$(CC) -Wl,-Map=coremark.map -T $(LDSCRIPT) $(OBJS) -lm -o $@
+$(BINDIR):
+	mkdir -p $@
+
+$(ELF): core mith target $(WORKDIR)/main.o
+	$(CC) -Wl,-Map=$(MAP) -T $(LDSCRIPT) $(OBJS) -lm -o $@
+	@mv $(ELF) $(MAP) $(BINDIR)
 
 .PHONY: core
 core:
@@ -40,9 +48,6 @@ mith:
 target:
 	$(MAKE) -C $(BSPDIR)
 
-.PHONY: exec
-exec: $(WORKDIR)/main.o
-
 $(WORKDIR)/main.o: $(WORKDIR)/main.c
 	$(CC) $(CFLAGS) $(INCS) -c $< -o $@
 
@@ -50,12 +55,13 @@ $(WORKDIR)/main.o: $(WORKDIR)/main.c
 debug: CFLAGS=-g
 debug: all
 
+.PHONY: distclean
+distclean: clean
+	$(RM) -r $(BUILDDIR)
+
 .PHONY: clean
 clean:
 	$(MAKE) -C $(COREDIR) BSPDIR=$(BSPDIR) clean
 	$(MAKE) -C $(MITHDIR) BSPDIR=$(BSPDIR) clean
 	$(MAKE) -C $(MITHDIR) BSPDIR=$(BSPDIR) clean
-	$(RM) $(OBJS) $(ELF) coremark.map
-
-
-
+	$(RM) $(OBJS) $(BINDIR)/$(ELF) $(BINDIR)/$(MAP)

@@ -3,7 +3,7 @@ SECTIONS
 {
   . = 0x8000;
   .ro : {
-    startup.o (.text)
+    src/startup.o (.text)
     *(.text)
     *(.rodata)
   }

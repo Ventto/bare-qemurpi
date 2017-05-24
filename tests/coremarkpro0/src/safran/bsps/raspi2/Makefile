@@ -1,7 +1,7 @@
 .PHONY: all
-all: $(TOPDIR)/startup.o syscounter.o
+all: $(TOPDIR)/src/startup.o syscounter.o
 
-$(TOPDIR)/startup.o: startup.S
+$(TOPDIR)/src/startup.o: startup.S
 	$(AS) $(AFLAGS) $< -o $@
 
 syscounter.o: syscounter.c
