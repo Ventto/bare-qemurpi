@@ -51,20 +51,6 @@ int _read(int file, char *ptr, int len)
 
 caddr_t _sbrk(int incr) { return (caddr_t) 0; }
 
-clock_t _times (struct tms *tp)
-{
-    clock_t timeval = 40;
-
-	if (tp)
-	{
-		tp->tms_utime  = timeval;   /* user time */
-		tp->tms_stime  = 0;         /* system time */
-		tp->tms_cutime = 0;         /* user time, children */
-		tp->tms_cstime = 0;         /* system time, children */
-    }
-    return timeval;
-}
-
 int _write(int file, char *ptr, int len)
 {
     int todo;
