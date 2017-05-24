@@ -55,7 +55,7 @@ clean:
 	$(MAKE) -C $(COREDIR) BSPDIR=$(BSPDIR) clean
 	$(MAKE) -C $(MITHDIR) BSPDIR=$(BSPDIR) clean
 	$(MAKE) -C $(MITHDIR) BSPDIR=$(BSPDIR) clean
-	$(RM) $(OBJS) $(ELF)
+	$(RM) $(OBJS) $(ELF) coremark.map
 
 
 
