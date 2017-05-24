@@ -108,13 +108,13 @@ Please refer to http://www.eembc.org/license.php for the specific license agreem
 	#endif
 	ALTIMETYPE initial, final;
 #else
-        #include <time.h>
-		#define ALTIMETYPE clock_t
+		#define NSECS_PER_SEC       1000000000
+		#define TIMER_RES_DIVIDER   16              /* ns per tick */
+		#define MYTIMEDIFF(fin,ini) (((fin)-(ini))) /* elapsed ticks */
+		#define ALTIMETYPE          uint64_t
+		#define GETMYTIME(_t)       (*_t=get_cntpct())
+        extern uint64_t get_cntpct(void);
 		ALTIMETYPE initial, final;
-		#define GETMYTIME(_t) (*_t=clock())
-		#define MYTIMEDIFF(fin,ini) (((fin)-(ini))/TIMER_RES_DIVIDER)
-		#define NSECS_PER_SEC 1000000000
-		#define TIMER_RES_DIVIDER 100
 #endif
 
 
@@ -745,10 +745,6 @@ void	al_main( int argc, char* argv[]  )
 	> Many systems will not need to put anything in this section. However,
 	> special command line options may make porting your benchmarks easier.
 	*/
-
-    /* FIXME: Initialize RTC */
-
-    /* FIXME: END */
 
 #if 	!HOST_EXAMPLE_CODE
 #endif

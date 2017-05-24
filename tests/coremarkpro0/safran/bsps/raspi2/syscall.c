@@ -3,6 +3,7 @@
 #include <sys/stat.h>
 #include <sys/times.h>
 #include <time.h>
+#include <inttypes.h>
 
 enum {
 	UART_FR_RXFE = 0x10,
@@ -62,22 +63,6 @@ caddr_t _sbrk(int incr) {
 
 	heap_end += incr;
 	return (caddr_t) prev_heap_end;
-}
-
-clock_t timeval;
-clock_t _times (struct tms *tp)
-{
-    timeval += 10000;
-
-	if (tp)
-	{
-		tp->tms_utime  = timeval;    /* user time */
-		tp->tms_stime  = 0;    /* system time */
-		tp->tms_cutime = 0;  /* user time, children */
-		tp->tms_cstime = 0;    /* system time, children */
-	}
-
-	return timeval;
 }
 
 int _write(int file, char *ptr, int len)
