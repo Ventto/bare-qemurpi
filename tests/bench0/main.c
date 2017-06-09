@@ -1,9 +1,8 @@
 #include <stdio.h>
 #include <inttypes.h>
 
-#define HZ_PER_MHZ      1000000     /* Hz */
 #define FRQ_DEFAULT     62500000    /* Hz */
-#define PRD_DEFAULT     16          /* ns */
+#define HZ_PER_MHZ       1000000
 
 static inline void set_freq(uint32_t val)
 {
@@ -23,7 +22,7 @@ static inline uint64_t get_cntpct(void)
 {
     uint64_t val;
 
-	__asm volatile("mrrc p15, 0, %Q0, %R0, c14" : "=r" (val));
+    __asm volatile("mrrc p15, 0, %Q0, %R0, c14" : "=r" (val));
 
     return val;
 }
@@ -31,25 +30,21 @@ static inline uint64_t get_cntpct(void)
 int main(void) {
     set_freq(FRQ_DEFAULT);
 
-    int sample = 3;
     uint32_t freq = get_freq();
     uint64_t start, end;
 
-    for (int i = 0; i < sample;) {
+    printf("\nARM System Counter Frequency:\n%.1f MHz\n\n",
+            (float)freq / HZ_PER_MHZ);
 
-        start = get_cntpct();
+    start = get_cntpct();
 
-        /* FIXME: BEGIN */
+    /* FIXME: BEGIN */
 
-        /* FIXME: END */
+    /* FIXME: END */
 
-        end = get_cntpct();
+    end = get_cntpct();
 
-        printf("FRQ: %.1f MHz\tPERIOD: %d ns\tElapsed time: " "%" PRIu64 " ns\n",
-                (float)freq / HZ_PER_MHZ, PRD_DEFAULT >> i,
-                (end - start) * (PRD_DEFAULT >> i));
-
-        freq = FRQ_DEFAULT << ++i;
-        set_freq(freq);
-    }
+    printf("Results:\n");
+    printf("--Total (ticks): %" PRIu64 "\n", end - start);
+    printf("--Total (secs): %.5f\n\n", (float)(end - start) / (float)freq);
 }
