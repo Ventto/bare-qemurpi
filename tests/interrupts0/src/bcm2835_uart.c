@@ -8,4 +8,5 @@ void uart_print(const char *s)
     while(*s != '\0') {
 		*UART_IN = (unsigned int)(*s++);
 	}
+	*UART_IN = (unsigned int)('\r');
 }
