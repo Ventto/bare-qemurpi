@@ -1,5 +1,11 @@
 file kernel7.elf
 target remote localhost:1234
 tbreak kernel_main
+break undefined_instruction_vector
+break software_interrupt_vector
+break prefetch_abort_vector
+break data_abort_vector
+break interrupt_vector
+break fast_interrupt_vector
 tabset
 layout regs
