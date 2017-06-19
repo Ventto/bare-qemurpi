@@ -1,5 +1,6 @@
-#include "log.h"
 #include "bcm2835_uart.h"
+
+#define log(s)  uart_print(s)
 
 void __attribute__((interrupt("ABORT"))) reset_vector(void)
 {

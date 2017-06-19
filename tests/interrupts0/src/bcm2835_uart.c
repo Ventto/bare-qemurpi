@@ -1,12 +1,13 @@
 #include <stdint.h>
 #include "bcm2835_uart.h"
 
-volatile unsigned int * const UART_IN = (unsigned int *)(UART_BASE);
+volatile unsigned int * const uart_dr = (unsigned int *)(UART_BASE);
 
 void uart_print(const char *s)
 {
     while(*s != '\0') {
-		*UART_IN = (unsigned int)(*s++);
+		*uart_dr = (unsigned int)(*s++);
 	}
-	*UART_IN = (unsigned int)('\r');
+    /* Force newline for serial display */
+	*uart_dr = (unsigned int)('\r');
 }

@@ -6,9 +6,8 @@ BIN  = $(APP).bin
 MAP  = $(APP).map
 
 SRCS = bcm2835_uart.c \
-	   irq_handlers.c \
-	   main.c \
-	   startup.S
+	   int_handlers.c \
+	   vectors.S
 OBJS = $(addprefix src/, $(patsubst %.S,%.o,$(patsubst %.c,%.o,$(SRCS))))
 
 LINK = startup.x
@@ -25,7 +24,10 @@ $(BIN): $(ELF)
 $(ELF): $(OBJS)
 	$(CC) $(CFLAGS) -Wl,-Map=$(MAP) -T $(LINK) $^ -o $@
 
-src/startup.o: src/startup.S
+src/vectors.o: src/vectors.S
+	$(AS) $(DFLAGS) $< -o $@
+
+src/generic_timers.o: src/generic_timers.S
 	$(AS) $(DFLAGS) $< -o $@
 
 .PHONY: debug
