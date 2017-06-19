@@ -52,7 +52,7 @@ _enable_interrupts:
         /* B1.3.3: CPSR holds interrupt disable bits */
 
         mrs     r0, cpsr        /* Stores CPSR into r0 */
-        bic     r0, r0, #0x80/0x40   /* r0 = r0 & !op2 : Sets IRQ mask bit */
+        bic     r0, r0, #0x80   /* r0 = r0 & !op2 : Sets IRQ mask bit */
 
         /** CPSR_c is used instead of CPSR in the MSR instruction,
             to avoid altering the condition code flags. */
