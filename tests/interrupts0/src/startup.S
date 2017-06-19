@@ -1,8 +1,5 @@
 .section .text
 .global _start
-.global _enable_interrupts
-.global _enable_pl1_ptimer
-.global _set_pl1_ptimer
 .extern print_uart
 
 /** From ARM Architecture Reference Manual: ARMv7-A and ARMv7-R edition
@@ -48,6 +45,7 @@ _reset_:
         /* If main returns for some reason than loop forever */
         b .
 
+.global _enable_interrupts
 _enable_interrupts:
         /* B1.3.3: CPSR holds interrupt disable bits */
 
@@ -65,6 +63,7 @@ output_str:    .ascii "CNTK_CTL:\n\0"
 
 .align 4
 
+.global _enable_pl1_ptimer
 _enable_pl1_ptimer:
 
         /** B8.1: Operation of the timer output sinal
@@ -93,6 +92,7 @@ _enable_pl1_ptimer:
 
         mov     pc, lr
 
+.global _set_pl1_ptimer
 _set_pl1_ptimer:
         /**
             B8.1.5 Timers: Operation of the CompareValue views of the timers
