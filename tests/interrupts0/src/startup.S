@@ -26,7 +26,7 @@ _data_h       : .word   data_abort_vector
  _fiq_h       : .word   fast_interrupt_vector
 
 _reset_:
-        ldr sp, =stack_top
+        /* ldr sp, =stack_top */
 
         /* Copy the vector table at 0x8000 to the active table at 0x0000 */
         mov     r0, #0x8000
