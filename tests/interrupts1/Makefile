@@ -1,21 +1,23 @@
 include ../crosscompile_defs.mk
 
-APP  = kernel7
-ELF  = $(APP).elf
-BIN  = $(APP).bin
-MAP  = $(APP).map
+APP  	= kernel7
+ELF  	= $(APP).elf
+BIN  	= $(APP).bin
+MAP  	= $(APP).map
+LINK 	= startup.x
 
-SRCS = vectors.S \
-	   generic_timers.S \
-	   int_handlers.c \
-	   syscall.c \
-	   main.c
-OBJS = $(addprefix src/, $(patsubst %.S,%.o,$(patsubst %.c,%.o,$(SRCS))))
-
-LINK = startup.x
+SRCS 	= bootstrap.S \
+			vectors.S \
+	   		generic_timers.S \
+	   		int_handlers.c \
+	   		gic.c \
+	   		syscall.c \
+	   		main.c
+OBJS 	= $(addprefix src/, $(patsubst %.S,%.o,$(patsubst %.c,%.o,$(SRCS))))
 
 INCDIRS = -I./include
-CFLAGS += -nostartfiles $(INCDIRS)
+CFLAGS 	+= -nostartfiles $(INCDIRS)
+AFLAGS  +=
 
 .PHONY: all
 all: $(BIN)
@@ -26,15 +28,18 @@ $(BIN): $(ELF)
 $(ELF): $(OBJS)
 	$(CC) $(CFLAGS) -Wl,-Map=$(MAP) -T $(LINK) $^ -o $@
 
+src/bootstrap.o: src/bootstrap.S
+	$(AS) $(AFLAGS) $< -o $@
+
 src/vectors.o: src/vectors.S
-	$(AS) $(DFLAGS) $< -o $@
+	$(AS) $(AFLAGS) $< -o $@
 
 src/generic_timers.o: src/generic_timers.S
-	$(AS) $(DFLAGS) $< -o $@
+	$(AS) $(AFLAGS) $< -o $@
 
 .PHONY: debug
-debug: DFLAGS=-g
-debug: CFLAGS+=$(DFLAGS)
+debug: AFLAGS+=-g
+debug: CFLAGS+=-g
 debug: all
 
 .PHONY: clean

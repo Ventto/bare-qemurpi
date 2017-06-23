@@ -14,8 +14,10 @@
     |-----------|-------|-------|-------|-------|-------|--------|
     |CNTFRQ     | p15   |c14    |0      |c0     |   0   | 32-bit |
     |CNTPCT     | p15   |c14    |0      |c14    |   0   | 64-bit |
+    |CNTKCTL    | p15   |c14    |0      |c1     |   0   | 32-bit |
     |CNTP_TVAL  | p15   |c14    |0      |c2     |   0   | 32-bit |
     |CNTP_CTL   | p15   |c14    |0      |c2     |   1   | 32-bit |
+    |CNTP_CVAL  | p15   |c14    |2      |c14    |   1   | 64-bit |
 
     Accessing 32-bit:
 
@@ -34,7 +36,13 @@ _gt_get_freq:
 
 .global _gt_get_count
 _gt_get_count:
-        mrrc p15, 0, r1, r0, c14
+        isb
+        mrrc    p15, 0, r0, r1, c14
+        mov     pc, lr
+
+.global _gt_get_kctl
+_gt_get_kctl:
+        mrc     p15, 0, r0, c14, c1, 0
         mov     pc, lr
 
 .global _gt_get_tval
@@ -47,14 +55,28 @@ _gt_get_ctl:
         mrc     p15, 0, r0, c14, c2, 1
         mov     pc, lr
 
-.global _gt_set_cval
-_gt_set_tval:
-        mcr     p15, 0, r0, c14, c2, 0
+.global _gt_get_cval
+_gt_get_cval:
+        isb
+        mrrc    p15, 2, r0, r1, c14
         mov     pc, lr
 
 .global _gt_set_tval
+_gt_set_tval:
+        mcr     p15, 0, r0, c14, c2, 0
+        isb
+        mov     pc, lr
+
+.global _gt_set_ctl
 _gt_set_ctl:
         mcr     p15, 0, r0, c14, c2, 1
+        isb
+        mov     pc, lr
+
+.global _gt_set_cval
+_gt_set_cval:
+        mcrr    p15, 2, r0, r1, c14
+        isb
         mov     pc, lr
 
 .global _gt_start
@@ -69,6 +91,13 @@ _gt_start:
 
                 * bit[0]: ENABLE    timer enabled if set
                 * bit[1]: IMASK     timer signal not masked if not set */
+
+        /* Enable user access */
+        mrc     p15, 0, r0, c14, c1, 0
+        orr     r1, r0, #0x1
+        orr     r2, r1, #0x200
+        mcr     p15, 0, r2, c14, c1, 0
+
         mrc     p15, 0, r0, c14, c2, 1
         orr     r1, r0, #0x1
         mcr     p15, 0, r1, c14, c2, 1

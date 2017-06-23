@@ -1,10 +1,9 @@
 .section .text
-.global _start
 
 /** From ARM Architecture Reference Manual: ARMv7-A and ARMv7-R edition
     B1.8.1 Exception vectors and exception base address
     Interrupt Vector Table */
-_start:
+_vectors_:
         ldr pc, _reset_h
         ldr pc, _undef_h
         ldr pc, _swi_h       /* A8.8.228: Previously called SWI, now SVC */
@@ -15,18 +14,17 @@ _start:
         ldr pc, _fiq_h
 
 /* Constants that hold interrupt service routine's addresses. */
- _reset_h     : .word   _reset_
+ _reset_h     : .word   _reset
  _undef_h     : .word   undefined_instruction_vector
  _swi_h       : .word   software_interrupt_vector
  _prefetch_h  : .word   prefetch_abort_vector
-_data_h       : .word   data_abort_vector
- _unused_h    : .word   _reset_
+ _data_h      : .word   data_abort_vector
+ _unused_h    : .word   _reset
  _irq_h       : .word   interrupt_vector
  _fiq_h       : .word   fast_interrupt_vector
 
-_reset_:
-        /* ldr sp, =stack_top */
-
+.global _reset
+_reset:
         /* Copy the vector table at 0x8000 to the active table at 0x0000 */
         mov     r0, #0x8000
         mov     r1, #0x0000
@@ -63,12 +61,12 @@ _reset_:
         /*  Interrupt stack initialization */
         mov r0,#0xD2
         msr cpsr_c,r0
-        mov sp,#0x7000
+        mov sp,#(63 * 1024 * 1024)
 
         /*  Applicative stack initialization */
         mov r0,#0xD3
         msr cpsr_c,r0
-        mov sp,#0x8000
+        mov sp,#(64 * 1024 * 1024)
 
         bl      kernel_main
 
