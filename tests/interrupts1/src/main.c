@@ -47,7 +47,7 @@ void kernel_main(void)
 
     printf("\n=> setting\n");
 
-    cval = _gt_get_count() + 64000000;
+    cval = _gt_get_count() + 20000000;
     tval1 = _gt_get_tval();
     _gt_set_cval(cval);
     tval2 = _gt_get_tval();

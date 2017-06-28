@@ -16,19 +16,20 @@
 
 uint32_t gic_get_addr(void)
 {
-    uint32_t cbar; //, addr;
+    uint32_t cbar, addr;
 
     __asm__ volatile ("mrc p15, 4, %0, c15, c0, 0" : "=r" (cbar));
+    __asm__ volatile ("bfc	%0, #0, #15" : "=r" (addr) : "r" (cbar));
 
-    return cbar;
+    return addr;
 }
 
 uint32_t gicd_get_reg(long reg)
 {
-    return *((uint32_t *)(GICD_BASE + reg));
+    return *((uint32_t *)(gic_get_addr() + reg));
 }
 
 uint32_t gicd_ptimer_status(void)
 {
-    return *((uint32_t *)(GICD_BASE + GICD_PPISR)) & 0x6000;
+    return *((uint32_t *)(gic_get_addr() + GICD_PPISR)) & 0x6000;
 }
