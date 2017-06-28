@@ -1,5 +1,6 @@
 .section .text
 
+.align 4
 /** From ARM Architecture Reference Manual: ARMv7-A and ARMv7-R edition
     B1.8.1 Exception vectors and exception base address
     Interrupt Vector Table */
@@ -26,7 +27,7 @@ _vectors_:
 .global _reset
 _reset:
         /* Copy the vector table at 0x8000 to the active table at 0x0000 */
-        mov     r0, #0x8000
+        ldr     r0, =_vectors_
         mov     r1, #0x0000
 
         /* -- Loads vector table (8*32bits) and increments */
@@ -72,17 +73,3 @@ _reset:
 
         /* If main returns for some reason than loop forever */
         b .
-
-.global _enable_interrupts
-_enable_interrupts:
-        /* B1.3.3: CPSR holds interrupt disable bits */
-
-        mrs     r0, cpsr        /* Stores CPSR into r0 */
-        bic     r0, r0, #0x80   /* r0 = r0 & !op2 : Sets IRQ mask bit */
-
-        /** CPSR_c is used instead of CPSR in the MSR instruction,
-            to avoid altering the condition code flags. */
-
-        msr     cpsr_c, r0      /* Write back CPSR from r0 */
-
-        mov     pc, lr

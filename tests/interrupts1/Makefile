@@ -8,10 +8,11 @@ LINK 	= startup.x
 
 SRCS 	= bootstrap.S \
 			vectors.S \
+			irq.S \
 	   		generic_timers.S \
-	   		int_handlers.c \
-	   		gic.c \
+			isr.c \
 	   		syscall.c \
+			bcm2836_control.c \
 	   		main.c
 OBJS 	= $(addprefix src/, $(patsubst %.S,%.o,$(patsubst %.c,%.o,$(SRCS))))
 

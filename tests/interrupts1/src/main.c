@@ -1,22 +1,11 @@
 #include <inttypes.h>
 #include <stdio.h>
 
-#include "gic.h"
+#include "bcm2836_control.h"
+#include "generic_timers.h"
+#include "irq.h"
 
 #define MASK_32BIT  0xFFFFFFFFLL
-
-extern uint32_t _gt_get_freq(void);
-extern uint64_t _gt_get_count(void);
-extern uint32_t _gt_get_kctl(void);
-extern uint32_t _gt_get_tval(void);
-extern uint32_t _gt_get_ctl(void);
-extern uint64_t _gt_get_cval(void);
-extern void _gt_set_tval(uint32_t val);
-extern void _gt_set_ctl(uint32_t val);
-extern void _gt_set_cval(uint64_t val);
-extern void _gt_start(void);
-extern void _gt_stop(void);
-extern void _enable_interrupts(void);
 
 void kernel_main(void)
 {
@@ -24,11 +13,6 @@ void kernel_main(void)
     uint32_t freq, tval1, tval2;
 
     freq = _gt_get_freq();
-
-    printf("\n[ Generic Interrupt Controller ]\n\n");
-    printf("Map:\t\t0x%08x\n", (unsigned int)gic_get_addr());
-    printf("GICD_TYPER:\t0x%08x\n", (unsigned int)gicd_get_reg(GICD_TYPER));
-    printf("GICD_PPISR:\t0x%08x\n", (unsigned int)gicd_get_reg(GICD_PPISR));
 
     printf("\n[ Generic Timer ]\n\n");
 
@@ -47,7 +31,7 @@ void kernel_main(void)
 
     printf("\n=> setting\n");
 
-    cval = _gt_get_count() + 20000000;
+    cval = _gt_get_count() + 15000000;
     tval1 = _gt_get_tval();
     _gt_set_cval(cval);
     tval2 = _gt_get_tval();
@@ -58,7 +42,8 @@ void kernel_main(void)
 
     printf("\n=> start\n");
 
-    _enable_interrupts();
+    _enable_irqs();
+    bcm_enable_timer_irqs(0, (CTL_CNTPNSIRQ_ENABLED | CTL_CNTPSIRQ_ENABLED));
     _gt_start();
 
     printf("CNTKCTL:\t0x%08x\n", (unsigned int)_gt_get_kctl());

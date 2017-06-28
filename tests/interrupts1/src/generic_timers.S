@@ -100,13 +100,14 @@ _gt_start:
 
         mrc     p15, 0, r0, c14, c2, 1
         orr     r1, r0, #0x1
-        mcr     p15, 0, r1, c14, c2, 1
+        bic     r0, r1, #0x2
+        mcr     p15, 0, r0, c14, c2, 1
         mov     pc, lr
 
 .global _gt_stop
 _gt_stop:
         mrc     p15, 0, r0, c14, c2, 1
-        bic     r1, r0, #0x2
+        orr     r1, r0, #0x2
         mcr     p15, 0, r1, c14, c2, 1
         mov     pc, lr
 
