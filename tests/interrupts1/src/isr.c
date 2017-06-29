@@ -39,13 +39,13 @@ void __attribute__((isr("ABORT"))) data_abort_vector(void)
 
 void __attribute__((isr("IRQ"))) interrupt_vector(void)
 {
-    uint32_t cpsr = _disable_irqs();
+    uint32_t cpsr = disable_irqs();
 
-    _gt_disable();
+    gt_disable();
 
     printf("\ninterrupt: IRQ\n");
 
-    _restore_irqs(cpsr);
+    restore_irqs(cpsr);
 }
 
 void __attribute__((isr("FIQ"))) fast_interrupt_vector(void)

@@ -29,58 +29,58 @@
     MRRC{cond} coproc, #opcode, Rt, Rt2, CRm            ; Read
     MCRR -                                              ; Write */
 
-.global _gt_get_freq
-_gt_get_freq:
+.global gt_get_freq
+gt_get_freq:
         mrc     p15, 0, r0, c14, c0, 0
         mov     pc, lr
 
-.global _gt_get_count
-_gt_get_count:
+.global gt_get_count
+gt_get_count:
         isb
         mrrc    p15, 0, r0, r1, c14
         mov     pc, lr
 
-.global _gt_get_kctl
-_gt_get_kctl:
+.global gt_get_kctl
+gt_get_kctl:
         mrc     p15, 0, r0, c14, c1, 0
         mov     pc, lr
 
-.global _gt_get_tval
-_gt_get_tval:
+.global gt_get_tval
+gt_get_tval:
         mrc     p15, 0, r0, c14, c2, 0
         mov     pc, lr
 
-.global _gt_get_ctl
-_gt_get_ctl:
+.global gt_get_ctl
+gt_get_ctl:
         mrc     p15, 0, r0, c14, c2, 1
         mov     pc, lr
 
-.global _gt_get_cval
-_gt_get_cval:
+.global gt_get_cval
+gt_get_cval:
         isb
         mrrc    p15, 2, r0, r1, c14
         mov     pc, lr
 
-.global _gt_set_tval
-_gt_set_tval:
+.global gt_set_tval
+gt_set_tval:
         mcr     p15, 0, r0, c14, c2, 0
         isb
         mov     pc, lr
 
-.global _gt_set_ctl
-_gt_set_ctl:
+.global gt_set_ctl
+gt_set_ctl:
         mcr     p15, 0, r0, c14, c2, 1
         isb
         mov     pc, lr
 
-.global _gt_set_cval
-_gt_set_cval:
+.global gt_set_cval
+gt_set_cval:
         mcrr    p15, 2, r0, r1, c14
         isb
         mov     pc, lr
 
-.global _gt_enable
-_gt_enable:
+.global gt_enable
+gt_enable:
         /** B8.1: Operation of the timer output sinal
 
             Condition to assert a timer:
@@ -97,8 +97,8 @@ _gt_enable:
         mcr     p15, 0, r0, c14, c2, 1
         mov     pc, lr
 
-.global _gt_disable
-_gt_disable:
+.global gt_disable
+gt_disable:
         mrc     p15, 0, r0, c14, c2, 1
         orr     r1, r0, #0x2
         mcr     p15, 0, r1, c14, c2, 1
