@@ -6,7 +6,7 @@
 
 void __attribute__((isr("ABORT"))) reset_vector(void)
 {
-    printf("interrupt: ABORT\n");
+    printf("\ninterrupt: ABORT\n");
 }
 
 void __attribute__((isr("UNDEF"))) undefined_instruction_vector(void)
@@ -29,25 +29,26 @@ void __attribute__((isr("SWI"))) software_interrupt_vector(void)
 
 void __attribute__((isr("ABORT"))) prefetch_abort_vector(void)
 {
-    printf("interrupt: ABORT\n");
+    printf("\ninterrupt: ABORT\n");
 }
 
 void __attribute__((isr("ABORT"))) data_abort_vector(void)
 {
-    printf("interrupt: ABORT\n");
+    printf("\ninterrupt: ABORT\n");
 }
 
 void __attribute__((isr("IRQ"))) interrupt_vector(void)
 {
-    uint32_t irq_state = _disable_irqs();
-    _gt_stop();
+    uint32_t cpsr = _disable_irqs();
 
-    printf("interrupt: IRQ\n");
+    _gt_disable();
 
-    _restore_irqs(irq_state);
+    printf("\ninterrupt: IRQ\n");
+
+    _restore_irqs(cpsr);
 }
 
 void __attribute__((isr("FIQ"))) fast_interrupt_vector(void)
 {
-    printf("interrupt: FIQ\n");
+    printf("\ninterrupt: FIQ\n");
 }

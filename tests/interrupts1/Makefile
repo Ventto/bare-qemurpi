@@ -13,7 +13,7 @@ SRCS 	= bootstrap.S \
 			isr.c \
 	   		syscall.c \
 			bcm2836_control.c \
-	   		main.c
+			not_main.c
 OBJS 	= $(addprefix src/, $(patsubst %.S,%.o,$(patsubst %.c,%.o,$(SRCS))))
 
 INCDIRS = -I./include

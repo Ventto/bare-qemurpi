@@ -79,8 +79,8 @@ _gt_set_cval:
         isb
         mov     pc, lr
 
-.global _gt_start
-_gt_start:
+.global _gt_enable
+_gt_enable:
         /** B8.1: Operation of the timer output sinal
 
             Condition to assert a timer:
@@ -91,21 +91,14 @@ _gt_start:
 
                 * bit[0]: ENABLE    timer enabled if set
                 * bit[1]: IMASK     timer signal not masked if not set */
-
-        /* Enable user access */
-        mrc     p15, 0, r0, c14, c1, 0
-        orr     r1, r0, #0x1
-        orr     r2, r1, #0x200
-        mcr     p15, 0, r2, c14, c1, 0
-
         mrc     p15, 0, r0, c14, c2, 1
         orr     r1, r0, #0x1
         bic     r0, r1, #0x2
         mcr     p15, 0, r0, c14, c2, 1
         mov     pc, lr
 
-.global _gt_stop
-_gt_stop:
+.global _gt_disable
+_gt_disable:
         mrc     p15, 0, r0, c14, c2, 1
         orr     r1, r0, #0x2
         mcr     p15, 0, r1, c14, c2, 1

@@ -69,7 +69,7 @@ _reset:
         msr cpsr_c,r0
         mov sp,#(64 * 1024 * 1024)
 
-        bl      kernel_main
+        bl  not_main
 
         /* If main returns for some reason than loop forever */
         b .

@@ -2,10 +2,7 @@
 
 #include "bcm2836_control.h"
 
-void bcm_enable_timer_irqs(int core, uint32_t val)
+inline void bcm_enable_core_timer_irqs(int core, uint32_t ctl)
 {
-    volatile uint32_t *reg = (uint32_t *)(BCM2836_CONTROL_CORE_TIMERS
-                                          + (0x4 * core));
-
-    *reg |= val;
+    *(uint32_t *)(BCM2836_CONTROL_CORE_TIMERS + (0x4 * core)) |= ctl;
 }

@@ -10,7 +10,7 @@ extern uint64_t _gt_get_cval(void);
 extern void _gt_set_tval(uint32_t val);
 extern void _gt_set_ctl(uint32_t val);
 extern void _gt_set_cval(uint64_t val);
-extern void _gt_start(void);
-extern void _gt_stop(void);
+extern void _gt_enable(void);
+extern void _gt_disable(void);
 
 #endif
