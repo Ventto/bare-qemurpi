@@ -1,9 +1,14 @@
-# Root
+# Dirs
 docs/
+
+# Toolchain
 *.o
 *.elf
 *.bin
 *.map
+
+# Garbage
+core
 
 # QEMU
 trace-*
