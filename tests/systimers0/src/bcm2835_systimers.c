@@ -3,13 +3,14 @@
 #include "bcm2835_ic.h"
 #include "bcm2835_systimers.h"
 
-void bcm2835_st_enable_timers(int val)
+#define ST_REG_CONTROL      (volatile uint32_t *)(BCM2835_SYSTIMER_BASE + 0x00)
+
+void bcm2835_st_enable_timer(int timer)
 {
-    *ST_REG_CONTROL &= ~ (1 << val);
-    *IC_REG_ENABLE_IRQS_1 |= 0xAUL;
+    *IC_REG_ENABLE_IRQS_1 |= (1 << timer);
 }
 
-void bcm2835_st_disable_timers(int val)
+void bcm2835_st_ack_timer(int timer)
 {
-    *IC_REG_DISABLE_IRQS_1 |= 0xAUL;
+    *ST_REG_CONTROL |= (1 << timer);
 }

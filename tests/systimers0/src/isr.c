@@ -4,6 +4,10 @@
 #include "bcm2835_systimers.h"
 #include "irq.h"
 
+#define DEFAULT_TIMER   3
+
+extern int wait_for_timer;
+
 void __attribute__((isr("ABORT"))) reset_vector(void)
 {
     printf("\ninterrupt: ABORT\n");
@@ -41,7 +45,10 @@ void __attribute__((isr("IRQ"))) interrupt_vector(void)
 {
     uint32_t cpsr = disable_irqs();
 
-    bcm2835_st_disable_timers(ST_DEFAULT_OS_TIMER);
+    bcm2835_st_ack_timer(DEFAULT_TIMER);
+
+    wait_for_timer = 0;
+
     printf("\ninterrupt: IRQ\n");
 
     restore_irqs(cpsr);
