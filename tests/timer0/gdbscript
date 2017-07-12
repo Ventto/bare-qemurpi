@@ -1,4 +1,0 @@
-file kernel7.elf
-target remote localhost:1234
-b main
-tabset
