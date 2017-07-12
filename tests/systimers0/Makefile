@@ -11,7 +11,6 @@ SRCS 	= bootstrap.S \
 			irq.S \
 			isr.c \
 	   		syscall.c \
-			bcm2836_control.c \
 	   		bcm2835_systimers.c \
 			not_main.c
 OBJS 	= $(addprefix src/, $(patsubst %.S,%.o,$(patsubst %.c,%.o,$(SRCS))))

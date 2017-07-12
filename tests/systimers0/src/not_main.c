@@ -3,12 +3,7 @@
 
 #include "bcm2835_ic.h"
 #include "bcm2835_systimers.h"
-#include "bcm2836_control.h"
 #include "irq.h"
-
-/* ARM Controller Register bits to enable core timer IRQs */
-#define CTL_CNTPNSIRQ   0x2
-#define CTL_CNTPSIRQ    0x1
 
 /* BCM2835 System Timer registers */
 #define ST_REG_CONTROL      (volatile uint32_t *)(BCM2835_SYSTIMER_BASE + 0x00)
