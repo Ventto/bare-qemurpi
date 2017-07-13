@@ -17,7 +17,7 @@ void not_main(void)
             "0x%08x\n",
             (unsigned int)bcm2835_ic_get_state()->enable_basic_irqs);
 
-    bcm2835_ic_get_state()->enable_basic_irqs = BASIC_ARM_TIMER_IRQ;
+    //bcm2835_ic_get_state()->enable_basic_irqs = BASIC_ARM_TIMER_IRQ;
     bcm2835_ic_get_state()->enable_irqs_1 = (1 << 30);
 
     printf("Enable basic IRQs (after): 0x%08x\n",
