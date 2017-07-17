@@ -12,7 +12,7 @@ BCM2835ARMTimerState *bcm2835_armtimer_get_state(void)
 
 void bcm2835_armtimer_init(void)
 {
-    bcm2835_armtimer_state->ctrl = ARMTIMER_CTRL_TIMER_ENABLE
+    bcm2835_armtimer_state->ctrl |= ARMTIMER_CTRL_TIMER_ENABLE
                                        | ARMTIMER_CTRL_INT_ENABLE;
     //bcm2835_armtimer_state->load = 0;
 }
