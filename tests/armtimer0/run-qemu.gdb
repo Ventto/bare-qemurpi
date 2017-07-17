@@ -33,6 +33,14 @@ b bcm2835_armtimer_cb
 #
 # -----------------------
 
+# Timer counter equals zero
+
+b hw/core/ptimer.c:171
+commands
+p s->timer->expire_time
+call qemu_clock_get_ns(QEMU_CLOCK_VIRTUAL)
+end
+
 # Our timer expired and triggered its callback
 
 b ptimer_tick
