@@ -47,8 +47,6 @@ void __attribute__((isr("IRQ"))) interrupt_vector(void)
 
     bcm2835_armtimer_ack();
 
-    wait_for_timer = 0;
-
     printf("\ninterrupt: IRQ\n");
 
     restore_irqs(cpsr);

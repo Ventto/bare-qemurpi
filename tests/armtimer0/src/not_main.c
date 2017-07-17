@@ -5,8 +5,6 @@
 #include "bcm2835_armtimer.h"
 #include "irq.h"
 
-int wait_for_timer = 1;
-
 void not_main(void)
 {
     /* Initialize ARM Timer Control Register */
@@ -23,8 +21,7 @@ void not_main(void)
     /* Enable cores to receive any IRQs */
     enable_irqs();
 
-    while (wait_for_timer) {
-        /* FIXME: Prints downcount timer value. */
+    while (1) {
         printf("ARM Timer Value: %" PRIu32 "\n",
                 bcm2835_armtimer_get_state()->value);
     }
