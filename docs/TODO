@@ -1,0 +1,30 @@
+Days: 70
+
+Jalons:
+
+    - Draft Technical Doc:
+        * QEMU contexte
+        * QEMU architecutre draft (logical/organic) 2S
+        * QEMU/SystemC global functioning 1S
+        * Listing QEMU/CLI options 2J
+            # compilation (configure)
+            # run (-M,-cpu, etc...)
+            # monitor (mtree, qtree, qom)
+
+    - QEMU Clock Architecture:
+        * Study on timers/registers of QEMU (elapsed time in the guest)
+        * Study icount & clocks
+
+    - Rpi2 functional testing
+        * Using QEMU tracing features with simple baremetal app
+        * Coremark monocore
+        * Coremark multicore
+        * Document tracing methods and coremark results
+
+    - Rpi3 Emulation:
+        * Evaluate transition between Rpi2 -> Rpi3 (arch,cpu,devices,mappings)
+        * Create machine module
+
+    - SystemC Device Module:
+        * Investigation on QEMU/SC wrapper
+        * Investigation on device module creation

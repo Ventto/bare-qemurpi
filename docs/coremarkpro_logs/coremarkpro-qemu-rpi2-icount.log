@@ -1,0 +1,108 @@
+TEST:
+
+* The System Counter used to measure time:
+    - Its frequency (CNTFRQ) is  62.5 MHz
+    - Granularity: 16 ns
+    - Tick per second: 65200000
+* Processor Frequency = 1 GHz / 2 ^ ICOUNT
+
+[ ICOUNT = 2 > Processor Frequency: 250 MHz]
+
+-  Info: Starting Run...
+-- Workload:core=490760323
+-- core:time(ticks)=445482814
+-- core:contexts=1
+-- core:iterations=1
+-- core:time(secs)= 7.12773
+-- core:secs/workload= 7.12773
+-- core:workloads/sec=0.140297
+Info: This run was executed with verification turned on! For performance results, use -v0.
+-- core:UID=10000
+-- core:fails=0
+-- core:time(ticks)=445462701
+-- core:count=1
+-- core:repeats=0
+-- core:v1=0
+-- core:v2=0
+-- core:v3=0
+-- core:v4=0
+-- core:f1=0.000000e+00
+-- core:f2=0.000000e+00
+-- core:f3=0.000000e+00
+-- core:f4=0.000000e+00
+-- core:secs/repeat=     inf
+-- core:repeats/sec=       0
+-- core:time(secs)=  7.1274
+-- core:secs/item=  7.1274
+-- core:items/sec=0.140304
+-- Items:total(ticks)=445462701
+-- Items:total(secs)=  7.1274
+-- Done:core=490760323
+
+[ ICOUNT = 3 > Processor Frequency: 125 MHz]
+
+-  Info: Starting Run...
+-- Workload:core=490760323
+-- core:time(ticks)=890965628
+-- core:contexts=1
+-- core:iterations=1
+-- core:time(secs)= 14.2555
+-- core:secs/workload= 14.2555
+-- core:workloads/sec=0.0701486
+Info: This run was executed with verification turned on! For performance results, use -v0.
+-- core:UID=10000
+-- core:fails=0
+-- core:time(ticks)=890925402
+-- core:count=1
+-- core:repeats=0
+-- core:v1=0
+-- core:v2=0
+-- core:v3=0
+-- core:v4=0
+-- core:f1=0.000000e+00
+-- core:f2=0.000000e+00
+-- core:f3=0.000000e+00
+-- core:f4=0.000000e+00
+-- core:secs/repeat=     inf
+-- core:repeats/sec=       0
+-- core:time(secs)= 14.2548
+-- core:secs/item= 14.2548
+-- core:items/sec=0.0701518
+-- Items:total(ticks)=890925402
+-- Items:total(secs)= 14.2548
+-- Done:core=490760323
+QEMU: Terminated
+
+[ ICOUNT = 4 > Processor Frequency: 62.5 MHz]
+
+-  Info: Starting Run...
+-- Workload:core=490760323
+-- core:time(ticks)=1781931256
+-- core:contexts=1
+-- core:iterations=1
+-- core:time(secs)= 28.5109
+-- core:secs/workload= 28.5109
+-- core:workloads/sec=0.0350743
+Info: This run was executed with verification turned on! For performance results, use -v0.
+-- core:UID=10000
+-- core:fails=0
+-- core:time(ticks)=1781850803
+-- core:count=1
+-- core:repeats=0
+-- core:v1=0
+-- core:v2=0
+-- core:v3=0
+-- core:v4=0
+-- core:f1=0.000000e+00
+-- core:f2=0.000000e+00
+-- core:f3=0.000000e+00
+-- core:f4=0.000000e+00
+-- core:secs/repeat=     inf
+-- core:repeats/sec=       0
+-- core:time(secs)= 28.5096
+-- core:secs/item= 28.5096
+-- core:items/sec=0.0350759
+-- Items:total(ticks)=1781850803
+-- Items:total(secs)= 28.5096
+-- Done:core=490760323
+QEMU: Terminated
