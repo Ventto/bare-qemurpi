@@ -3,5 +3,4 @@
 	url = https://github.com/crosstool-ng/crosstool-ng.git
 [submodule "qemu"]
 	path = qemu
-	url = https://git.sds.safran/git-066/Stages2017/qemu.git
-	branch = safran/dev
+	url = https://github.com/ventto/qemu.git
